@@ -1,0 +1,178 @@
+/* Estilo geral para o body e html */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mantém o diálogo ou a caixa de batalha sempre no rodapé */
+    overflow: hidden; /* Para garantir que o flash cubra toda a tela sem overflow */
+}
+
+/* Flash Overlay */
+#flash-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.flash-active {
+    opacity: 1;
+}
+
+/* Fundo para a tela de diálogo */
+body.dialogue-page {
+    background: url('assets/backgrounds/dialogue-background.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Fundo para a tela de batalha */
+body.battle-page {
+    background: url('assets/backgrounds/battle-background.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Estilo do container de diálogo */
+#dialog-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mantém o texto de diálogo no rodapé */
+}
+
+/* Estilo da caixa de diálogo no rodapé */
+#dialog-box {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Caixa semitransparente */
+    color: #000;
+    padding: 20px;
+    border-radius: 10px 10px 0 0; /* Bordas arredondadas na parte superior */
+    box-shadow: 0px -3px 15px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura total */
+    z-index: 2;
+}
+
+/* Estilo do texto do diálogo */
+#dialog-text {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Estilo do botão de diálogo */
+#dialog-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Faz o botão ocupar toda a largura disponível */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    margin-top: 10px;
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+#dialog-button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo do container da tela de batalha */
+#battle-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mantém o texto de batalha no rodapé */
+}
+
+/* Estilo da caixa de batalha no rodapé */
+#battle-box {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Caixa quase opaca */
+    border: 3px solid #000; /* Borda sólida */
+    border-radius: 15px 15px 0 0; /* Bordas arredondadas na parte superior */
+    padding: 20px;
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura total */
+    z-index: 2;
+}
+
+/* Estilo do texto de batalha */
+#battle-text {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Estilo do botão de resposta na tela de batalha */
+#response-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Faz o botão ocupar toda a largura disponível */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+#response-button:hover {
+    background-color: #45a049;
+}
+
+/* Para garantir que o flash e os sprites não sejam sobrepostos pelo fundo */
+#dialog-container, #battle-container, #flash-overlay {
+    z-index: 2;
+}
+
+/* Animação para o flash overlay */
+@keyframes flash {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.flash-active {
+    animation: flash 0.1s ease-in-out;
+}
+
+/* Animação para o sprite do Boss dar um pequeno salto durante o diálogo */
+@keyframes speak-jump {
+    0%, 100% {
+        transform: translateY(0); /* Posição original */
+    }
+    50% {
+        transform: translateY(-10px); /* Pequeno salto para cima */
+    }
+}
+
+/* Classe que aplica a animação de fala ao Boss */
+.speaking {
+    animation: speak-jump 0.5s ease-in-out;
+}

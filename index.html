@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quest - Tela Inicial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="capa">
+    <div id="start-screen">
+        <h1>Code Quest</h1>
+        <button id="start-button">Jogar</button>
+    </div>
+    <script>
+        document.getElementById("start-button").addEventListener("click", function() {
+            window.location.href = "dialog.html";  // Redireciona para a fase de diálogo
+        });
+    </script>
+</body>
+</html>

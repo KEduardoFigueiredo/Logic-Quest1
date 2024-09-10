@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quest - Diálogo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilo geral para o body e html */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mantém o diálogo sempre no rodapé */
+    overflow: hidden; /* Para garantir que o flash cubra toda a tela sem overflow */
+}
+
+/* Fundo para a tela de diálogo */
+body.dialogue-page {
+    background: url('assets/backgrounds/dialogue-background.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Flash Overlay */
+#flash-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.flash-active {
+    opacity: 1;
+}
+
+/* Estilo do container de diálogo */
+#dialog-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mantém o texto de diálogo no rodapé */
+}
+
+/* Estilo da caixa de diálogo no rodapé */
+#dialog-box {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Caixa semitransparente */
+    color: #000;
+    padding: 20px;
+    border-radius: 10px 10px 0 0; /* Bordas arredondadas na parte superior */
+    box-shadow: 0px -3px 15px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura total */
+    z-index: 2;
+}
+
+/* Estilo do texto do diálogo */
+#dialog-text {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Estilo do botão de diálogo */
+#dialog-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Faz o botão ocupar toda a largura disponível */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    margin-top: 10px;
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+#dialog-button:hover {
+    background-color: #45a049;
+}
+
+/* Animação para o sprite do Boss dar um pequeno salto durante o diálogo */
+@keyframes speak-jump {
+    0%, 100% {
+        transform: translateY(0); /* Posição original */
+    }
+    50% {
+        transform: translateY(-10px); /* Pequeno salto para cima */
+    }
+}
+
+/* Classe que aplica a animação de fala ao Boss */
+.speaking {
+    animation: speak-jump 0.5s ease-in-out;
+}
+
+    </style>
+</head>
+<body class="dialogue-page"> <!-- Classe para o cenário de diálogo -->
+    <div id="background"></div> <!-- Fundo cobrindo toda a tela -->
+
+    <!-- Container do diálogo e sprites -->
+    <div id="dialog-container">
+        <div id="boss-sprite-container">
+            <img id="boss-sprite" src="assests/sprites/sprite de conversa boss redimensionado].png" alt="Boss Sprite">
+        </div>
+        <div id="dialog-box">
+            <p id="dialog-text"></p>
+            <button id="next-dialog">Continuar</button>
+            <button id="fight-button" class="hidden">Luta</button>
+        </div>
+    </div>
+
+    <script>
+        const dialogParts = [
+            {
+                text: "Bem-vindo, bravo herói. Eu sou o Boss final.",
+                sprite: "assests/sprites/sprite de conversa boss redimensionado].png"
+            },
+            {
+                text: "Você chegou longe, mas sua jornada termina aqui.",
+                sprite: "assests/sprites/sprite de conversa boss redimensionado].png"
+            },
+            {
+                text: "Espero que você esteja preparado para o desafio que está por vir.",
+                sprite: "assests/sprites/sprite de conversa boss redimensionado].png"
+            },
+            {
+                text: "Este será o nosso último confronto. Prepare-se!",
+                sprite: "assests/sprites/sprite de conversa boss redimensionado].png"
+            }
+        ];
+
+        let currentDialogIndex = 0;
+
+        function showDialog() {
+            const bossSprite = document.getElementById("boss-sprite");
+            
+            // Atualiza o texto e o sprite
+            document.getElementById("dialog-text").textContent = dialogParts[currentDialogIndex].text;
+            bossSprite.src = dialogParts[currentDialogIndex].sprite;
+
+            // Adiciona a classe de animação "speaking" para o salto do personagem
+            bossSprite.classList.add("speaking");
+            
+            // Remove a animação após o tempo da animação (0.5s)
+            setTimeout(() => {
+                bossSprite.classList.remove("speaking");
+            }, 500);
+        }
+
+        document.getElementById("next-dialog").addEventListener("click", function() {
+            currentDialogIndex++;
+            if (currentDialogIndex < dialogParts.length) {
+                showDialog();
+            } else {
+                document.getElementById("next-dialog").classList.add("hidden"); // Esconde o botão "Continuar"
+                document.getElementById("fight-button").classList.remove("hidden"); // Mostra o botão "Luta"
+            }
+        });
+
+        document.getElementById("fight-button").addEventListener("click", function() {
+            window.location.href = "game.html"; // Redireciona para a batalha
+        });
+
+        // Adiciona o evento para pressionar "Enter" também avançar o diálogo
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                if (!document.getElementById("next-dialog").classList.contains("hidden")) {
+                    document.getElementById("next-dialog").click();
+                } else if (!document.getElementById("fight-button").classList.contains("hidden")) {
+                    document.getElementById("fight-button").click();
+                }
+            }
+        });
+
+        // Mostra o primeiro diálogo ao carregar a página
+        document.addEventListener("DOMContentLoaded", function() {
+            showDialog();
+        });
+    </script>
+</body>
+</html>
+

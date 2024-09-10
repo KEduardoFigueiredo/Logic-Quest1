@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quest - Boss Fight</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="flash-overlay"></div>
+    <div id="game-container">
+        <!-- Tela do Boss -->
+        <div id="boss-screen">
+            <div id="battle-background" class="full-screen-background"></div>
+
+            <!-- Informações do Boss no topo esquerdo -->
+            <div id="boss-area">
+                <div id="boss-info">
+                    <div class="info-container">
+                        <div class="name-label">Boss</div>
+                        <div class="hp-bar">
+                            <div id="boss-health" class="hp"></div>
+                        </div>
+                    </div>
+                    <div id="boss-sprite">
+                        <img id="boss-idle" src="assets/sprites/boss-idle.png" alt="Boss Idle">
+                        <img id="boss-attack" class="hidden" src="assets/sprites/boss-attack.png" alt="Boss Attack">
+                        <img id="boss-hit" class="hidden" src="assets/sprites/boss-hit.png" alt="Boss Hit">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações do Player no canto inferior direito -->
+            <div id="player-area">
+                <div id="player-info">
+                    <div class="info-container">
+                        <div class="name-label">Player</div>
+                        <div class="hp-bar">
+                            <div id="player-health" class="hp"></div>
+                        </div>
+                    </div>
+                    <div id="player-sprite">
+                        <img id="player-idle" src="assets/sprites/player-idle.png" alt="Player Idle">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container de perguntas -->
+            <div id="question-container">
+                <p id="question-text">Questão aqui</p>
+                <input type="text" id="answer-input" placeholder="Digite sua resposta">
+                <button id="submit-answer">Responder</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
